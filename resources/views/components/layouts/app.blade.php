@@ -100,13 +100,13 @@
                         <ul class="space-y-2 text-gray-400">
                             <li><a href="{{ route('privacy') }}" class="hover:text-white transition-colors">{{ __('footer.privacy') }}</a></li>
                             <li><a href="{{ route('terms') }}" class="hover:text-white transition-colors">{{ __('footer.terms') }}</a></li>
-                            <li><a href="mailto:support@audiobookcreator.app" class="hover:text-white transition-colors">{{ __('footer.contact') }}</a></li>
+                            <li><a href="mailto:andreaskviby@gmail.com" class="hover:text-white transition-colors">{{ __('footer.contact') }}</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="border-t border-white/10 mt-8 pt-8 text-center text-gray-500">
-                    <p>&copy; {{ date('Y') }} Audio Book Creator. {{ __('footer.rights') }}</p>
+                    <p>&copy; 2026 Ettehag Kviby Holding AB. {{ __('footer.rights') }}</p>
                 </div>
             </div>
         </footer>

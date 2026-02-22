@@ -94,8 +94,8 @@
                     <h2 class="text-2xl font-semibold mb-4 text-white">{{ __('terms.contact_title') }}</h2>
                     <p class="text-gray-300 leading-relaxed">{{ __('terms.contact_text') }}</p>
                     <p class="text-gray-300 mt-4">
-                        <a href="mailto:support@audiobookcreator.app" class="text-purple-400 hover:text-purple-300 transition-colors">
-                            support@audiobookcreator.app
+                        <a href="mailto:andreaskviby@gmail.com" class="text-purple-400 hover:text-purple-300 transition-colors">
+                            andreaskviby@gmail.com
                         </a>
                     </p>
                 </div>
