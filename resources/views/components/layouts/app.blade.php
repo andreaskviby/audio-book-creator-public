@@ -96,11 +96,11 @@
                     </div>
 
                     <div>
-                        <h4 class="font-semibold mb-4">{{ __('footer.support') }}</h4>
+                        <h4 class="font-semibold mb-4">{{ __('footer.legal') }}</h4>
                         <ul class="space-y-2 text-gray-400">
-                            <li><a href="#" class="hover:text-white transition-colors">{{ __('footer.documentation') }}</a></li>
-                            <li><a href="#" class="hover:text-white transition-colors">{{ __('footer.contact') }}</a></li>
-                            <li><a href="#" class="hover:text-white transition-colors">{{ __('footer.privacy') }}</a></li>
+                            <li><a href="{{ route('privacy') }}" class="hover:text-white transition-colors">{{ __('footer.privacy') }}</a></li>
+                            <li><a href="{{ route('terms') }}" class="hover:text-white transition-colors">{{ __('footer.terms') }}</a></li>
+                            <li><a href="mailto:support@audiobookcreator.app" class="hover:text-white transition-colors">{{ __('footer.contact') }}</a></li>
                         </ul>
                     </div>
                 </div>
