@@ -43,28 +43,82 @@
                 </a>
             </div>
 
-            <div class="relative max-w-5xl mx-auto">
+            <div class="relative max-w-5xl mx-auto" x-data="{
+                currentSlide: 0,
+                slides: [
+                    { src: '/01_main_overview.png', alt: 'Main Overview' },
+                    { src: '/02_language_translation.png', alt: 'Language Translation' },
+                    { src: '/03_audio_workflow.png', alt: 'Audio Workflow' },
+                    { src: '/04_settings.png', alt: 'Settings' },
+                    { src: '/05_voice_selection.png', alt: 'Voice Selection' },
+                    { src: '/06_help_guide.png', alt: 'Help Guide' }
+                ],
+                autoPlay: null,
+                startAutoPlay() {
+                    this.autoPlay = setInterval(() => { this.next() }, 4000);
+                },
+                stopAutoPlay() {
+                    clearInterval(this.autoPlay);
+                },
+                next() {
+                    this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+                },
+                prev() {
+                    this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+                }
+            }" x-init="startAutoPlay()" @mouseenter="stopAutoPlay()" @mouseleave="startAutoPlay()">
                 <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur-2xl opacity-30"></div>
                 <div class="relative bg-gray-900/80 backdrop-blur-xl rounded-2xl border border-white/10 p-2 shadow-2xl">
-                    <div class="flex items-center gap-2 px-4 py-2 border-b border-white/10">
-                        <div class="flex gap-2">
-                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                        </div>
-                        <span class="text-gray-500 text-sm ml-2">Audio Book Creator</span>
-                    </div>
-                    <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
-                                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
+                    <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
+                        <div class="flex items-center gap-2">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                             </div>
-                            <p class="text-gray-400">{{ __('hero.app_preview') }}</p>
+                            <span class="text-gray-500 text-sm ml-2">Audio Book Creator</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <template x-for="(slide, index) in slides" :key="index">
+                                <button @click="currentSlide = index"
+                                    :class="currentSlide === index ? 'bg-purple-500' : 'bg-gray-600 hover:bg-gray-500'"
+                                    class="w-2 h-2 rounded-full transition-colors"></button>
+                            </template>
                         </div>
                     </div>
+                    <div class="relative aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden">
+                        {{-- Carousel Images --}}
+                        <template x-for="(slide, index) in slides" :key="index">
+                            <img :src="slide.src"
+                                :alt="slide.alt"
+                                x-show="currentSlide === index"
+                                x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0 transform scale-95"
+                                x-transition:enter-end="opacity-100 transform scale-100"
+                                x-transition:leave="transition ease-in duration-200"
+                                x-transition:leave-start="opacity-100 transform scale-100"
+                                x-transition:leave-end="opacity-0 transform scale-95"
+                                class="absolute inset-0 w-full h-full object-contain"
+                            >
+                        </template>
+
+                        {{-- Navigation Arrows --}}
+                        <button @click="prev()" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-colors group">
+                            <svg class="w-6 h-6 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        <button @click="next()" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-colors group">
+                            <svg class="w-6 h-6 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                {{-- Slide Caption --}}
+                <div class="mt-4 text-center">
+                    <p class="text-gray-400 text-sm" x-text="slides[currentSlide].alt"></p>
                 </div>
             </div>
         </div>
